@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useReducer } from 'react';
 import Home from '../Home';
 
-import ajax from '../lib/ajax';
+import ajax from '../../lib/ajax';
 
 const Login = props => {
 
@@ -11,7 +11,7 @@ const Login = props => {
       email: '',
       password: ''
     }
-  );
+  ); // useReducer()
 
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
@@ -19,9 +19,9 @@ const Login = props => {
   const handleInput = evt => {
     const name = evt.target.name;
     const value = evt.target.value;
-    console.log('name', name, 'value', value);
+
     setUserInput({[name]: value});
-  };
+  }; // handleInput()
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -38,9 +38,7 @@ const Login = props => {
         });
       })
       .catch(err => console.warn('Login error', err));
-
-
-  };
+  }; // handleSubmit()
 
   return (
     <Fragment>
@@ -52,7 +50,7 @@ const Login = props => {
         <label>Password:
           <input type="password" name="password" placeholder="password" onChange={handleInput} />
         </label>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Login" />
       </form>
       <p>
       Token: <span>{token}</span><br />
@@ -60,7 +58,7 @@ const Login = props => {
       </p>
 
     </Fragment>
-  );
-};
+  ); // return()
+}; // Login()
 
 export default Login;

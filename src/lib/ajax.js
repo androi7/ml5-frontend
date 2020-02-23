@@ -18,7 +18,10 @@ export default {
   signup(username, email, password, passwordConfirmation) {
     const url = `${BASE_URL}${SIGNUP_PATH}`;
     return axios.post(url, {
-
+      username,
+      email,
+      password,
+      passwordConfirmation
     });
   },
 
