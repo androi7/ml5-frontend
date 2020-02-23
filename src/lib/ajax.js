@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:3001';
 const LOGIN_PATH = '/user/login';
 const SIGNUP_PATH = '/user/signup';
-const PROFILE_PATH = '/user/me';
+const PROFILE_PATH = '/user';
 
 export default {
   login(email, password) {
@@ -25,8 +25,8 @@ export default {
     });
   },
 
-  openProfile(token) {
-    const url = `${BASE_URL}${PROFILE_PATH}`;
+  openProfile(token, userId) {
+    const url = `${BASE_URL}${PROFILE_PATH}/${userId}`;
     return axios.get(url, {
       headers: {
         'token': token

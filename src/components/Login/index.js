@@ -29,13 +29,18 @@ const Login = props => {
       .then(res => {
         console.log(res);
         setToken(res.data.token);
+        localStorage.setItem('token', res.data.token);
+
         return res.data.token;
       })
       .then(res => {
-        ajax.openProfile(res).then(result => {
-          console.log(result);
-          setUsername(result.data.username);
-        });
+        console.log('local', localStorage.getItem('token'));
+        const route = `/user/me` // instead of me use 'user ID'
+        props.history.push(route);
+        // ajax.openProfile(res, 'me').then(result => {
+        //   console.log(result);
+        //   setUsername(result.data.username);
+        // });
       })
       .catch(err => console.warn('Login error', err));
   }; // handleSubmit()
@@ -52,11 +57,6 @@ const Login = props => {
         </label>
         <input type="submit" value="Login" />
       </form>
-      <p>
-      Token: <span>{token}</span><br />
-      Username: <span>{username}</span>
-      </p>
-
     </Fragment>
   ); // return()
 }; // Login()
