@@ -14,10 +14,18 @@ const Routes = props => {
     <div>
       <Router>
         <nav>
-          <Link to="/">Home</Link> | &nbsp;
-          <Link to="/login">Login</Link> | &nbsp;
-          <Link to="/signup">Sign Up</Link> | &nbsp;
-          <Link to="/user/me">Profile</Link>
+          <Link to="/">
+            <button>Home</button>
+          </Link> | &nbsp;
+          <Link to="/login">
+            <button>Login</button>
+          </Link> | &nbsp;
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link> | &nbsp;
+          <Link to="/user/me">
+            <button>Profile</button>
+          </Link>
           <br/>
         </nav>
 
