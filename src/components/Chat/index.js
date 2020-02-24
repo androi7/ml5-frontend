@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import socketIOClient from 'socket.io-client';
+import AuthContext from '../../helper/AuthContext';
 
 const ENDPOINT = "http://localhost:3001";
 
@@ -20,18 +21,18 @@ const Chat = props => {
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
+  const userAuth = useContext(AuthContext);
+  const {user: { email }} = userAuth;
+  const {user: { username }} = userAuth;
+
+
   const socket = socketIOClient(ENDPOINT);
 
-
-
   useEffect(() => {
-    // socket.emit('user', {
-    //   user: localStorage.getItem('token')
-    // });
 
     socket.on('all messages', data => {
 
-      setMessageList(messageList => [...messageList, data.message]);
+      setMessageList(messageList => [...messageList, {message: data.message, user: data.user}]);
       console.log('list:', messageList);
       // console.log('websocket:', data);
       // setMessage(data.welcome);
@@ -40,6 +41,12 @@ const Chat = props => {
     // socket.on('welcome', data => {
     //   setMessage(data.newUser);
     // });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      socket.close();
+    }
   }, []);
 
 
@@ -51,7 +58,8 @@ const Chat = props => {
   const handleSubmit = evt => {
     evt.preventDefault();
     socket.emit('message', {
-      message: message
+      message,
+      user: {email, username}
     });
   };
 
@@ -64,7 +72,7 @@ const Chat = props => {
       <div>
         {messageList.map((m,i) => {
           console.log(m, i);
-          return <ChatMessage key={i} username={'user'} message={m} />;})
+          return <ChatMessage key={i} username={m.user.username} message={m.message} />;})
         }
       </div>
     </div>
