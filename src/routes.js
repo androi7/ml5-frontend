@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
+import Chat from './components/Chat';
 
 const Routes = props => {
 
@@ -26,6 +27,9 @@ const Routes = props => {
           <Link to="/user/me">
             <button>Profile</button>
           </Link>
+          <Link to="/chat">
+            <button>Chat</button>
+          </Link>
           <br/>
         </nav>
 
@@ -34,6 +38,7 @@ const Routes = props => {
           <Route exact path="/login" component={ Login } />
           <Route exact path="/signup" component={ Signup } />
           <PrivateRoute exact path="/user/:userId" handleAuthCheck={loginToken} component={ UserPage } />
+          <PrivateRoute exact path="/chat" handleAuthCheck={loginToken} component={ Chat } />
         </div>
       </Router>
     </div>
