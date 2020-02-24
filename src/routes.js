@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -6,10 +6,14 @@ import Signup from './components/Signup';
 import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
 import Chat from './components/Chat';
+import AuthContext from './helper/AuthContext';
 
 const Routes = props => {
 
   const loginToken = () => localStorage.getItem('token');
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
 
   return (
     <div>
@@ -34,11 +38,14 @@ const Routes = props => {
         </nav>
 
         <div>
+
           <Route exact path="/" component={ Home } />
-          <Route exact path="/login" component={ Login } />
           <Route exact path="/signup" component={ Signup } />
-          <PrivateRoute exact path="/user/:userId" handleAuthCheck={loginToken} component={ UserPage } />
-          <PrivateRoute exact path="/chat" handleAuthCheck={loginToken} component={ Chat } />
+          <AuthContext.Provider value={{user: {username, email}, setUsername: (props) => setUsername(props), setEmail: (props) => setEmail(props) }}>
+            <Route exact path="/login" component={ Login } />
+            <PrivateRoute exact path="/user/:userId" handleAuthCheck={loginToken} component={ UserPage } />
+            <PrivateRoute exact path="/chat" handleAuthCheck={loginToken} component={ Chat } />
+          </AuthContext.Provider>
         </div>
       </Router>
     </div>

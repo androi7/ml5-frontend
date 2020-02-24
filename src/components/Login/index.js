@@ -1,5 +1,6 @@
-import React, { Fragment, useState, useReducer } from 'react';
+import React, { Fragment, useState, useReducer, useContext } from 'react';
 import Home from '../Home';
+import AuthContext from '../../helper/AuthContext';
 
 import ajax from '../../lib/ajax';
 
@@ -16,6 +17,8 @@ const Login = props => {
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
 
+  const authUser = useContext(AuthContext);
+
   const handleInput = evt => {
     const name = evt.target.name;
     const value = evt.target.value;
@@ -30,11 +33,11 @@ const Login = props => {
         console.log(res);
         setToken(res.data.token);
         localStorage.setItem('token', res.data.token);
-
+        authUser.setUsername(res.data.username);
+        authUser.setEmail(res.data.email);
         return res.data.token;
       })
       .then(res => {
-        console.log('local', localStorage.getItem('token'));
         const route = `/user/me` // instead of me use 'user ID'
         props.history.push(route);
         // ajax.openProfile(res, 'me').then(result => {

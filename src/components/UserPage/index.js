@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ajax from '../../lib/ajax';
-
+import AuthContext from '../../helper/AuthContext';
 
 
 const UserPage = props => {
@@ -8,6 +8,9 @@ const UserPage = props => {
   const [token, setToken] = useState('');
   // only for testing
   const [username, setUsername] = useState('');
+
+  const authUser =  useContext(AuthContext);
+
 
   const loadUserPage = () => {
     if (token) {
@@ -20,9 +23,7 @@ const UserPage = props => {
   }; // loadUserPage()
 
   useEffect(() => {
-    console.log('useeffect');
     const token = localStorage.getItem('token');
-    console.log('localstorage:', token);
     setToken(token);
     }, []
   );
