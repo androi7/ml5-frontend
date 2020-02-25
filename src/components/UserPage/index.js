@@ -9,7 +9,7 @@ const UserPage = props => {
   // only for testing
   const [username, setUsername] = useState('');
 
-  const authUser =  useContext(AuthContext);
+  // const authUser =  useContext(AuthContext);
 
 
   const loadUserPage = () => {

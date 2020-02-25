@@ -32,5 +32,24 @@ export default {
         'token': token
       }
     });
+  },
+
+  getMessages(token, chatId) {
+    const url = `${BASE_URL}/chat/${chatId}/messages/`;
+    return axios.get(url, {
+      header: {
+        'token': token
+      }
+    });
+  },
+
+  getParticipants(token) {
+    const url = `${BASE_URL}/chat/participants`;
+    return axios.get(url, {
+      header: {
+        'token': token
+      }
+    });
   }
+
 };

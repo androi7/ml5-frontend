@@ -33,6 +33,7 @@ const Login = props => {
         console.log(res);
         setToken(res.data.token);
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userId', res.data.id);
         authUser.setUsername(res.data.username);
         authUser.setEmail(res.data.email);
         return res.data.token;
