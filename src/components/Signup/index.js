@@ -19,7 +19,7 @@ const Signup = props => {
     const name = evt.target.name;
     const value = evt.target.value;
 
-    setUserInput({[name]: value});
+    // setUserInput({[name]: value});
   }; // handleInput()
 
   const handleSubmit = event => {
@@ -28,7 +28,7 @@ const Signup = props => {
     ajax.signup(userInput.username, userInput.email, userInput.password, userInput.passwordConfirmation)
       .then(res => {
         console.log(res);
-        setToken(res.data.token);
+        // setToken(res.data.token);
       })
       .catch(err => console.warn('Signup error', err));
   }; // handleSubmit()

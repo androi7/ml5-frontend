@@ -1,10 +1,12 @@
+import React, { Fragment, useEffect, useState } from 'react';
+import ajax from '../../../lib/ajax';
+
 const UserList = props => {
-
-
 
   const [userList, setUserList] = useState([]);
 
   const loadParticipants = () => {
+    console.log('token', props.token);
     if (props.token) {
       ajax.getParticipants(props.token)
         .then(res => {
@@ -16,7 +18,7 @@ const UserList = props => {
     }
   };
 
-  useEffect(loadParticipants, [props.token]);
+  useEffect(loadParticipants, []);
 
   return (
     <Fragment>

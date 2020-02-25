@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import ajax from '../../lib/ajax';
-import AuthContext from '../../helper/AuthContext';
+// import AuthContext from '../../helper/AuthContext';
 
 
 const UserPage = props => {

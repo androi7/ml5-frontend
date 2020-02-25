@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
-import Chat from './components/Chat';
+import Chat from './components/ChatContainer/Chat';
 import AuthContext from './helper/AuthContext';
 
 const Routes = props => {
@@ -34,6 +34,9 @@ const Routes = props => {
           <Link to="/chat">
             <button>Chat</button>
           </Link>
+          {/*<Link to="/logout">
+            <button>Logout</button>
+          </Link> */ }
           <br/>
         </nav>
 
@@ -43,6 +46,7 @@ const Routes = props => {
           <Route exact path="/signup" component={ Signup } />
           <AuthContext.Provider value={{user: {username, email}, setUsername: (props) => setUsername(props), setEmail: (props) => setEmail(props) }}>
             <Route exact path="/login" component={ Login } />
+            {/*<Route exact path="/logout" component={ Logout } /> */}
             <PrivateRoute exact path="/user/:userId" handleAuthCheck={loginToken} component={ UserPage } />
             <PrivateRoute exact path="/chat" handleAuthCheck={loginToken} component={ Chat } />
           </AuthContext.Provider>

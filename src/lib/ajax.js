@@ -45,6 +45,7 @@ export default {
 
   getParticipants(token) {
     const url = `${BASE_URL}/chat/participants`;
+    console.log('getParticipants token', token);
     return axios.get(url, {
       header: {
         'token': token

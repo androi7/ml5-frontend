@@ -1,52 +1,11 @@
-import React, { useState, useEffect, useContext, Fragment } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import socketIOClient from 'socket.io-client';
-import AuthContext from '../../helper/AuthContext';
-import ajax from '../../lib/ajax';
+import AuthContext from '../../../helper/AuthContext';
+// import ajax from '../../../lib/ajax';
+import UserList from '../UserList';
+import ChatMessage from '../ChatMessage';
 
 const ENDPOINT = "http://localhost:3001";
-
-
-const ChatMessage = props => {
-
-  return (
-    <div>
-      <h2>{props.username}</h2>
-      <p>{props.message}</p>
-    </div>
-  );
-};
-
-const Participants = props => {
-
-
-
-  const [userList, setUserList] = useState([]);
-
-  const loadParticipants = () => {
-    if (props.token) {
-      ajax.getParticipants(props.token)
-        .then(res => {
-          res.data.forEach(userData => setUserList(userList => [...userList, {name: userData.name, id: userData.id}]));
-          console.log('res data', res.data);
-          console.log('userlist', userList);
-        })
-        .catch(err => console.warn(err));
-    }
-  };
-
-  useEffect(loadParticipants, [props.token]);
-
-  return (
-    <Fragment>
-      <ul>
-        {userList.map(u => {
-        return <li key={u.id} style={{listStyleType: "none"}}>{u.name}</li>}
-        )}
-      </ul>
-    </Fragment>
-  )
-}
-
 
 const Chat = props => {
 
@@ -63,7 +22,7 @@ const Chat = props => {
 
   useEffect(() => {
 
-    setMessageList(messageList => [])
+    setMessageList(messageList => []);
     socket.on('all messages', data => {
 
       setMessageList(messageList => [...messageList, {message: data.message, user: data.user}]);
@@ -72,15 +31,19 @@ const Chat = props => {
       // setMessage(data.welcome);
     });
 
+    const token = localStorage.getItem('token');
+    setToken(token);
+
+
     // socket.on('welcome', data => {
     //   setMessage(data.newUser);
     // });
   }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setToken(token);
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   setToken(token);
+  // }, []);
 
   useEffect(() => {
     return () => {
@@ -102,9 +65,11 @@ const Chat = props => {
     });
   };
 
+
+
   return (
     <div>
-      <Participants token={token} />
+      {token ? <UserList token={token} /> : null}
 
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleInput} />

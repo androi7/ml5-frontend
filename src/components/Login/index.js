@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useReducer, useContext } from 'react';
+import React, { Fragment, useReducer, useContext } from 'react';
 import Home from '../Home';
 import AuthContext from '../../helper/AuthContext';
 
@@ -14,8 +14,8 @@ const Login = props => {
     }
   ); // useReducer()
 
-  const [token, setToken] = useState('');
-  const [username, setUsername] = useState('');
+  // const [token, setToken] = useState('');
+  // const [username, setUsername] = useState('');
 
   const authUser = useContext(AuthContext);
 
@@ -31,7 +31,7 @@ const Login = props => {
     ajax.login(userInput.email, userInput.password)
       .then(res => {
         console.log(res);
-        setToken(res.data.token);
+        // setToken(res.data.token);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.id);
         authUser.setUsername(res.data.username);
