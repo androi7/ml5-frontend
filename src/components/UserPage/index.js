@@ -37,7 +37,6 @@ const UserPage = props => {
 
   return (
     <div>
-      {/*<Video />*/}
       <p>
       Token: <span>{token}</span><br />
       Username: <span>{username}</span>

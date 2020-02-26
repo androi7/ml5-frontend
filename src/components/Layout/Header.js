@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography, Button, SvgIcon, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,15 +21,17 @@ const HomeIcon = (props) => {
   );
 };
 
-const Header = (props) => {
+const Header = ({ handleAuthCheck }) => {
   const classes = useStyles();
+
+
 
   return (
     <AppBar position='static'>
       <Toolbar>
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <Button color='inherit' to="/" component={Link}>
-              <HomeIcon color="contrastText" />
+              <HomeIcon color="secondary" />
           </Button>
         </IconButton>
         <Typography variant='h5'
@@ -38,9 +40,13 @@ const Header = (props) => {
           Fake Snapchat
         </Typography>
 
-        <Button color="inherit" component={Link} >
-          Login
-        </Button>
+        {handleAuthCheck()
+          ? <Button color="inherit" to="/logout" component={Link} >
+              Logout
+            </Button>
+          : <Button color="inherit" to="/login" component={Link} >
+              Login
+            </Button>}
       </Toolbar>
     </AppBar>
   );

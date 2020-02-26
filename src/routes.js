@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/AuthenticationContainer/Login';
@@ -6,6 +6,7 @@ import Signup from './components/AuthenticationContainer/Signup';
 import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
 import Chat from './components/ChatContainer/Chat';
+import Video from './components/Video';
 import AuthContext from './helper/AuthContext';
 import Logout from './components/AuthenticationContainer/Logout';
 import { Header, Footer } from './components/Layout';
@@ -24,13 +25,15 @@ const Routes = props => {
     return localStorage.getItem('faceapi-token');
   };
 
+
+  const [authState, setAuthState] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
 
   return (
     <div>
       <Router>
-        <nav>
+        {/*<nav>
           <Link to="/">
             <button>Home</button>
           </Link> | &nbsp;
@@ -69,10 +72,10 @@ const Routes = props => {
                 </Link>
               </Fragment>
             : null}
-        </nav>
-        <Header />
+        </nav>*/}
+        <Header handleAuthCheck={loggedIn} />
 
-        <Footer />
+        {loggedIn() ? <Footer /> : null}
         <div>
 
           <Route exact path="/" component={ Home } />
@@ -83,6 +86,7 @@ const Routes = props => {
             {/*<Route exact path="/logout" component={ Logout } /> */}
             <PrivateRoute exact path="/user/me" handleAuthCheck={loggedIn} component={ UserPage } />
             <PrivateRoute exact path="/chat" handleAuthCheck={loggedIn} component={ Chat } />
+            <PrivateRoute exact path="/video" handleAuthCHeck={loggedIn} component={ Video } />
           </AuthContext.Provider>
         </div>
       </Router>

@@ -1,22 +1,47 @@
 import React from 'react'
-import { AppBar, Tabs, Tab } from '@material-ui/core'
+import { Link } from 'react-router-dom';
+import { AppBar, Tabs, Tab } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+  stickToBottom: {
+    position: 'fixed',
+    bottom: 0
+  }
+}));
 
 const Footer = (props) => {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
-    <AppBar position='static' >
+    <AppBar position='static' className={classes.stickToBottom} >
       <Tabs
-        value={1}
+        value={value}
+        onChange={handleChange}
         indicatorColor='secondary'
         textColor='secondary'
-        variant={'standard'}
+        variant='standard'
         centered={true}
       >
 
-        <Tab label="Profile" />
-        <Tab label="Video" />
-        <Tab label="Chat" />
+        <Tab label="Profile"
+              component={Link}
+              to='/user/me'
+              />
+        <Tab label='Chat'
+             component={Link}
+             to='/chat'
+             />
+        <Tab label="Video"
+             component={Link}
+             to="/video"
+             />
+
       </Tabs>
     </AppBar>
   );
@@ -24,46 +49,3 @@ const Footer = (props) => {
 
 
 export default Footer;
-//
-// class Footer extends Component {
-//   muscles = this.getMuscles()
-//
-//   getMuscles () {
-//     return [ '', ...this.props.muscles ]
-//   }
-//
-//   onIndexSelect = (e, index) => {
-//     this.props.onCategorySelect(this.muscles[index])
-//   }
-//
-//   getIndex = () => {
-//     return this.muscles.indexOf(this.props.category)
-//   }
-//
-//   render () {
-//     const { width } = this.props
-//     const isMobile = width === 'xs'
-//
-//     return (
-//       <AppBar position='static'>
-//         <Tabs
-//           value={this.getIndex()}
-//           onChange={this.onIndexSelect}
-//           indicatorColor='secondary'
-//           textColor='secondary'
-//           variant={isMobile ? 'scrollable' : 'standard'}
-//           centered={!isMobile}
-//         >
-//           {this.muscles.map(group =>
-//             <Tab key={group} label={group || 'All'} />
-//           )}
-//         </Tabs>
-//       </AppBar>
-//     )
-//   }
-// }
-//
-// export default compose(
-//   withContext,
-//   withWidth()
-// )(Footer)
