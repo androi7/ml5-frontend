@@ -1,8 +1,26 @@
 import React, { useState, useReducer } from 'react';
 import ajax from '../../../lib/ajax';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField, FormControl, Button } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      width: 350,
+      marginBottom: 15
+    }
+  },
+  button: {
+    marginTop: 30,
+    width: 200,
+    marginLeft: 75
+  }
+
+}));
 
 const Signup = props => {
 
+  const classes = useStyles();
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({...state, ...newState}),
     {
@@ -18,12 +36,14 @@ const Signup = props => {
   const handleInput = evt => {
     const name = evt.target.name;
     const value = evt.target.value;
+    console.log(name, value);
 
-    // setUserInput({[name]: value});
+    setUserInput({[name]: value});
   }; // handleInput()
 
   const handleSubmit = event => {
     event.preventDefault();
+    console.log('all singup data', userInput.username, userInput.email, userInput.password, userInput.passwordConfirmation);
     // username, email, password, passwordConfirmation
     ajax.signup(userInput.username, userInput.email, userInput.password, userInput.passwordConfirmation)
       .then(res => {
@@ -34,32 +54,35 @@ const Signup = props => {
   }; // handleSubmit()
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Username:
-        <input type="text"
-               name="username"
-               placeholder="username"
-               onChange={handleInput} />
-      </label>
-      <label>
-        <input type="email"
-               name="email"
-               placeholder="email"
-               onChange={handleInput} />
-      </label>
-      <label>Password:
-        <input type="password"
-               name="password"
-               placeholder="password"
-               onChange={handleInput} />
-      </label>
-      <label>Confirm Password:
-        <input type="password"
-               name="passwordConfirmation"
-               placeholder="confirm password"
-               onChange={handleInput} />
-      </label>
-      <input type="submit" value="Sign Up"/>
+    <form className={classes.root}
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          style={{display: 'block', width: 350, margin: '100px auto'}}
+          >
+
+      <TextField label="Username"
+                 name="username"
+                 onChange={handleInput}
+                 />
+      <TextField label="Email"
+                 type="email"
+                 name="email"
+                 onChange={handleInput}
+                 />
+      <TextField label="Password"
+                 type="password"
+                 name="password"
+                 onChange={handleInput}
+                 />
+      <TextField label="Password Confirmation"
+                 type="password"
+                 name="passwordConfirmation"
+                 onChange={handleInput}
+                 />
+
+               <Button type="submit" variant="outlined" color="secondary" className={classes.button} >
+        Sign Up
+      </Button>
     </form>
   ); // return()
 }; // Signup()
