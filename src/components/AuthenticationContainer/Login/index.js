@@ -1,8 +1,8 @@
 import React, { Fragment, useReducer, useContext } from 'react';
-import Home from '../Home';
-import AuthContext from '../../helper/AuthContext';
+import Home from '../../Home';
+import AuthContext from '../../../helper/AuthContext';
 
-import ajax from '../../lib/ajax';
+import ajax from '../../../lib/ajax';
 
 const Login = props => {
 

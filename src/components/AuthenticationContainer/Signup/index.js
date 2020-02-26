@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from 'react';
-import ajax from '../../lib/ajax';
+import ajax from '../../../lib/ajax';
 
 const Signup = props => {
 

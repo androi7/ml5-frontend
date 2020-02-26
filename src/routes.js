@@ -1,13 +1,14 @@
 import React, {useState, Fragment} from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import Login from './components/AuthenticationContainer/Login';
+import Signup from './components/AuthenticationContainer/Signup';
 import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
 import Chat from './components/ChatContainer/Chat';
 import AuthContext from './helper/AuthContext';
 import Logout from './components/AuthenticationContainer/Logout';
+import { Header, Footer } from './components/Layout';
 
 const Routes = props => {
 
@@ -69,7 +70,9 @@ const Routes = props => {
               </Fragment>
             : null}
         </nav>
+        <Header />
 
+        <Footer />
         <div>
 
           <Route exact path="/" component={ Home } />
