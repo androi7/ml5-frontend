@@ -32,14 +32,15 @@ const Login = props => {
       .then(res => {
         console.log(res);
         // setToken(res.data.token);
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('faceapi-token', res.data.token);
+        localStorage.setItem('faceapi-token-exp', Date.now())
         localStorage.setItem('userId', res.data.id);
         authUser.setUsername(res.data.username);
         authUser.setEmail(res.data.email);
         return res.data.token;
       })
       .then(res => {
-        const route = `/user/me` // instead of me use 'user ID'
+        const route = `/user/me`
         props.history.push(route);
         // ajax.openProfile(res, 'me').then(result => {
         //   console.log(result);

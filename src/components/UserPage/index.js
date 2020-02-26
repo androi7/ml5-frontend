@@ -26,7 +26,7 @@ const UserPage = props => {
   }; // loadUserPage()
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('faceapi-token');
     setToken(token);
     }, []
   );
@@ -37,7 +37,7 @@ const UserPage = props => {
 
   return (
     <div>
-      <Video />
+      {/*<Video />*/}
       <p>
       Token: <span>{token}</span><br />
       Username: <span>{username}</span>

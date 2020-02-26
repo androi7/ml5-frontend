@@ -31,7 +31,7 @@ const Chat = props => {
       // setMessage(data.welcome);
     });
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('faceapi-token');
     setToken(token);
 
 
@@ -85,8 +85,6 @@ const Chat = props => {
     </div>
   );
 };
-
-
 
 
 export default Chat;
