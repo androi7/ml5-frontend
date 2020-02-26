@@ -1,10 +1,27 @@
 import React, { Fragment, useReducer, useContext } from 'react';
-import Home from '../../Home';
+// import Home from '../../Home';
 import AuthContext from '../../../helper/AuthContext';
-
+import { TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import ajax from '../../../lib/ajax';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      width: 350,
+      marginBottom: 15
+    }
+  },
+  button: {
+    marginTop: 30,
+    width: 200,
+    marginLeft: 75
+  }
+
+}));
+
 const Login = props => {
+  const classes = useStyles();
 
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({...state, ...newState}),
@@ -52,15 +69,25 @@ const Login = props => {
 
   return (
     <Fragment>
-      <Home />
-      <form onSubmit={handleSubmit}>
-        <label>Email:
-          <input type="email" name="email" placeholder="email" onChange={handleInput} />
-        </label>
-        <label>Password:
-          <input type="password" name="password" placeholder="password" onChange={handleInput} />
-        </label>
-        <input type="submit" value="Login" />
+      {/*<Home />*/}
+      <form className={classes.root}
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            style={{display: 'block', width: 350, margin: '100px auto'}}
+            >
+        <TextField label="Email"
+                   type="email"
+                   name="email"
+                   onChange={handleInput}
+                   />
+         <TextField label="Password"
+                    type="password"
+                    name="password"
+                    onChange={handleInput}
+                    />
+        <Button type="submit" variant="outlined" color="secondary" className={classes.button} >
+          Login
+        </Button>
       </form>
     </Fragment>
   ); // return()

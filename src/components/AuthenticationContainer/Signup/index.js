@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import ajax from '../../../lib/ajax';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, FormControl, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -80,7 +80,7 @@ const Signup = props => {
                  onChange={handleInput}
                  />
 
-               <Button type="submit" variant="outlined" color="secondary" className={classes.button} >
+      <Button type="submit" variant="outlined" color="secondary" className={classes.button} >
         Sign Up
       </Button>
     </form>
