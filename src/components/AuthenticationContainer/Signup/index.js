@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import ajax from '../../../lib/ajax';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const Signup = props => {
+const Signup = ({ history }) => {
 
   const classes = useStyles();
   const [userInput, setUserInput] = useReducer(
@@ -31,24 +31,19 @@ const Signup = props => {
     }
   ); // useReducer()
 
-  const [token, setToken] = useState('');
-
   const handleInput = evt => {
     const name = evt.target.name;
     const value = evt.target.value;
-    console.log(name, value);
 
     setUserInput({[name]: value});
   }; // handleInput()
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log('all singup data', userInput.username, userInput.email, userInput.password, userInput.passwordConfirmation);
     // username, email, password, passwordConfirmation
     ajax.signup(userInput.username, userInput.email, userInput.password, userInput.passwordConfirmation)
       .then(res => {
-        console.log(res);
-        // setToken(res.data.token);
+        history.push('/login');
       })
       .catch(err => console.warn('Signup error', err));
   }; // handleSubmit()

@@ -1,5 +1,5 @@
-import React, {useState, useEffect, Fragment} from 'react';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/AuthenticationContainer/Login';
 import Signup from './components/AuthenticationContainer/Signup';
@@ -17,7 +17,7 @@ const Routes = props => {
   const loggedIn = () => {
     const tokenExpStart = localStorage.getItem('faceapi-token-exp');
     const tokenExpEnd = Date.now();
-    const expireTime = 30000; //miliseconds
+    const expireTime = 3600000; //milliseconds
     if (tokenExpEnd - tokenExpStart > expireTime) {
       localStorage.removeItem('faceapi-token-exp');
       localStorage.removeItem('faceapi-token');
@@ -25,8 +25,6 @@ const Routes = props => {
     return localStorage.getItem('faceapi-token');
   };
 
-
-  const [authState, setAuthState] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
 
@@ -83,10 +81,9 @@ const Routes = props => {
           <Route exact path="/logout" component={ Logout } />
           <AuthContext.Provider value={{user: {username, email}, setUsername: (props) => setUsername(props), setEmail: (props) => setEmail(props) }}>
             <Route exact path="/login" component={ Login } />
-            {/*<Route exact path="/logout" component={ Logout } /> */}
             <PrivateRoute exact path="/user/me" handleAuthCheck={loggedIn} component={ UserPage } />
             <PrivateRoute exact path="/chat" handleAuthCheck={loggedIn} component={ Chat } />
-            <PrivateRoute exact path="/video" handleAuthCHeck={loggedIn} component={ Video } />
+            <PrivateRoute exact path="/video" handleAuthCheck={loggedIn} component={ Video } />
           </AuthContext.Provider>
         </div>
       </Router>

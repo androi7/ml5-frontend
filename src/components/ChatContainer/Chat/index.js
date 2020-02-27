@@ -49,8 +49,7 @@ const Chat = props => {
     return () => {
       socket.close();
     }
-  }, []);
-
+  }, []);  
 
   const handleInput = evt => {
     const currentText = evt.target.value;

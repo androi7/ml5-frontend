@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ml5 from 'ml5';
-// import p5 from 'p5';
-import Video from '../Video';
 
 import ajax from '../../lib/ajax';
 // import AuthContext from '../../helper/AuthContext';
