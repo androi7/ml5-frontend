@@ -55,6 +55,16 @@ export default {
     });
   },
 
+  uploadImage(image) {
+    const url=`${BASE_URL}/video/upload`;
+    // const formData = new FormData();
+    // formData.append('image', image, 'titleTest');
+    return axios.post(url, {
+      headers: { 'Content-Type': 'multipart/form-data'},
+      file: image
+    });
+  }
+
   // uploadImageToCloud: async function(data) {
   //
   //   const url = `${CLOUDINARY_URL}/image/upload`;
