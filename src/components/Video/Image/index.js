@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dqo5zfv4u';
 
@@ -23,9 +23,17 @@ const Image = (props) => {
       .then(res => setImage(res.secure_url));
   }
 
+  useEffect(() => {
+    setImage(props.snapImage);
+    if(props.snapImage) {
+      console.log('to cloud:', props.snapImage);
+      uploadImageToCloudinary(props.snapImage);
+    }
+  }, [props.snapImage]);
+
   return (
     <div>
-      <img src={image} />
+      <img src={image} width="200" />
     </div>
   );
 };

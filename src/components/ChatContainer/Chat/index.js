@@ -34,22 +34,13 @@ const Chat = props => {
     const token = localStorage.getItem('faceapi-token');
     setToken(token);
 
-
-    // socket.on('welcome', data => {
-    //   setMessage(data.newUser);
-    // });
   }, []);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   setToken(token);
-  // }, []);
 
   useEffect(() => {
     return () => {
       socket.close();
     }
-  }, []);  
+  }, []);
 
   const handleInput = evt => {
     const currentText = evt.target.value;
