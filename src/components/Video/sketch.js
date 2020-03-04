@@ -1,15 +1,14 @@
 import ml5 from 'ml5';
 
+export let stream;
 export default function sketch (p) {
 
   let capture;
   let faceapi;
   let detections;
-  let glasses;
   let cnv;
   let stop = false;
-  let stream;
-
+  
   const detectionOptions = {
     withLandmarks: true,
     withDescriptors: false,
@@ -33,6 +32,7 @@ export default function sketch (p) {
     faceapi = ml5.faceApi(capture, detectionOptions, modelLoaded);
   };
 
+
   p.myCustomRedrawAccordingToNewPropsHandler = function (props) {
     if (props.passSnap){
 
@@ -53,10 +53,6 @@ export default function sketch (p) {
       );
       stop = true;
     }
-  };
-
-  const takeImage = () => {
-
   };
 
   const modelLoaded = () => {

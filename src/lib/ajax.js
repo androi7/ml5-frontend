@@ -27,30 +27,18 @@ export default {
 
   openProfile(token, userId) {
     const url = `${BASE_URL}${PROFILE_PATH}/${userId}`;
-    return axios.get(url, {
-      headers: {
-        'token': token
-      }
-    });
+    return axios.get(url);
   },
 
   getMessages(token, chatId) {
     const url = `${BASE_URL}/chat/${chatId}/messages/`;
-    return axios.get(url, {
-      header: {
-        'token': token
-      }
-    });
+    return axios.get(url);
   },
 
   getParticipants(token) {
     const url = `${BASE_URL}/chat/participants`;
     console.log('getParticipants token', token);
-    return axios.get(url, {
-      header: {
-        'token': token
-      }
-    });
+    return axios.get(url);
   },
 
   uploadImage(image, token) {
@@ -64,7 +52,7 @@ export default {
         headers: {
           // undefined, so browser will set type automatically
         'Content-Type': undefined, // 'multipart/form-data'
-        'token': token
+
       }
     });
   },
@@ -72,11 +60,7 @@ export default {
   getGallery(token) {
     const url = `${BASE_URL}/video/images`;
 
-    return axios.get(url, {
-      headers: {
-        'token': token
-      }
-    });
+    return axios.get(url);
   }
 
 };

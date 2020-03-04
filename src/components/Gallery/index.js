@@ -11,12 +11,10 @@ const Gallery = () => {
     setToken(token);
   }, []);
 
+
   useEffect(() => {
     ajax.getGallery(token).then(res => {
-      console.log('...res', res);
-      console.log('...res.data', res.data);
-      setGallery(res.data.map((img, ind) => <img key={ind} src={img} width="200" />));
-      console.log('...gallery', gallery);
+      setGallery(res.data.map((img, ind) => <img key={ind} src={img} width="200" alt="" />));
     });
   }, [token]);
 

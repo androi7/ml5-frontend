@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography, Button, SvgIcon, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,7 +21,7 @@ const HomeIcon = (props) => {
   );
 };
 
-const Header = (props) => { // handleAuthCheck
+const Header = ({ auth }) => { // handleAuthCheck
   const classes = useStyles();
 
   return (
@@ -38,7 +38,7 @@ const Header = (props) => { // handleAuthCheck
           Face Filter
         </Typography>
 
-        {props.auth
+        {auth
           ? <Button color="inherit" to="/logout" component={Link} >
               Logout
             </Button>

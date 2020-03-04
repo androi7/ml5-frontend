@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Footer = (props) => {
+const Footer = props => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

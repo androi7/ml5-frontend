@@ -12,10 +12,8 @@ const Images = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log('new token:', token);
     if(image) {
       ajax.uploadImage(image, token).then(res => {
-        console.log('result from cloud:',res);
         setImage(res.secure_url)
       });
     }

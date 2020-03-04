@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import ml5 from 'ml5';
 import P5Wrapper from 'react-p5-wrapper';
 import Images from './Images';
 import sketch from './sketch';
+import { stream } from './sketch'
 
 const Video = props => {
 
@@ -10,9 +10,18 @@ const Video = props => {
   const [imgStream, setImgStream] = useState(null);
   const [stopVideo, setStopVideo] = useState(false);
 
-  // useEffect(() => {
-  //   setStopVideo(true);
-  // }, []);
+  useEffect(() => {
+    return () => {
+      setStopVideo(true);
+
+      // only external import of stream possible so far, sketch doesn't allow returning props via cb
+      if (stream) {
+        stream.getTracks().forEach(
+          track => track.stop()
+        );
+      }
+    };
+  }, []);
 
   const stopVid = () => {
     setStopVideo(true);

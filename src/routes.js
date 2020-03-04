@@ -1,9 +1,9 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/AuthenticationContainer/Login';
 import Signup from './components/AuthenticationContainer/Signup';
-import UserPage from './components/UserPage';
+//import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
 import Chat from './components/ChatContainer/Chat';
 import Video from './components/Video';
@@ -12,6 +12,8 @@ import Profile from './components/Profile';
 import AuthContext from './helper/AuthContext';
 import Logout from './components/AuthenticationContainer/Logout';
 import { Header, Footer } from './components/Layout';
+import setAuthToken from './helper/setAuthToken';
+
 
 const Routes = props => {
 
@@ -19,15 +21,9 @@ const Routes = props => {
   const [email, setEmail] = useState('');
   const [auth, setAuth] = useState(false);
 
-  // const authHandler = authCondition => {
-  //   if(authCondition) {
-  //     setAuth(true);
-  //   } else {
-  //     setAuth(false);
-  //   }
-  //   console.log('auth', auth);
-  // };
-
+  if (localStorage['faceapi-token']) {
+    setAuthToken(localStorage['faceapi-token']);
+  }
 
   const loggedIn = () => {
     const tokenExpStart = localStorage.getItem('faceapi-token-exp');
@@ -47,7 +43,7 @@ const Routes = props => {
   return (
     <div>
       <Router>
-        <Header auth={auth} /> {/* handleAuthCheck={loggedIn} checkAuth={authHandler}*/} 
+        <Header auth={auth} />
 
         {auth ? <Footer /> : null}
 
