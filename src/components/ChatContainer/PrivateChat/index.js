@@ -7,7 +7,7 @@ import ChatMessage from '../ChatMessage';
 
 const ENDPOINT = "http://localhost:3001";
 
-const Chat = props => {
+const PrivateChat = props => {
 
   const [token, setToken] = useState('');
   const [message, setMessage] = useState('');
@@ -17,13 +17,12 @@ const Chat = props => {
   const {user: { email }} = userAuth;
   const {user: { username }} = userAuth;
 
-
   const socket = socketIOClient(ENDPOINT);
 
   useEffect(() => {
 
     setMessageList(messageList => []);
-    socket.on('all messages', data => {
+    socket.join('/private').on('private messages', data => {
 
       setMessageList(messageList => [...messageList, {message: data.message, user: data.user}]);
       console.log('list:', messageList);
@@ -49,13 +48,11 @@ const Chat = props => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    socket.emit('message', {
+    socket.to('/private').emit('message', {
       message,
       user: {email, username}
     });
   };
-
-
 
   return (
     <div>
@@ -76,5 +73,4 @@ const Chat = props => {
   );
 };
 
-
-export default Chat;
+export default PrivateChat;

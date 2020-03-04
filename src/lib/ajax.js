@@ -61,6 +61,11 @@ export default {
     const url = `${BASE_URL}/video/images`;
 
     return axios.get(url);
+  },
+
+  initPublicChat(token) {
+    const url = `${BASE_URL}/chat/public`;
+    return axios.post(url);
   }
 
 };

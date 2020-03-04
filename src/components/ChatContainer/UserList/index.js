@@ -5,14 +5,11 @@ const UserList = props => {
 
   const [userList, setUserList] = useState([]);
 
-  const loadParticipants = async () => {
-    console.log('token in userlist:', props.token);
+  const loadParticipants = () => {
     if (props.token) {
-      await ajax.getParticipants(props.token)
+      ajax.getParticipants(props.token)
         .then(res => {
           res.data.forEach(userData => setUserList(userList => [...userList, {name: userData.name, id: userData.id}]));
-          console.log('res data', res.data);
-          console.log('userlist', userList);
         })
         .catch(err => console.warn('userlist failed', err));
     }

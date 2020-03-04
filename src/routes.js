@@ -5,7 +5,9 @@ import Login from './components/AuthenticationContainer/Login';
 import Signup from './components/AuthenticationContainer/Signup';
 //import UserPage from './components/UserPage';
 import PrivateRoute from './components/PrivateRoute';
-import Chat from './components/ChatContainer/Chat';
+import PublicChat from './components/ChatContainer/PublicChat';
+import PrivateChat from './components/ChatContainer/PrivateChat';
+import ChatRoom from './components/ChatContainer/ChatRoom';
 import Video from './components/Video';
 import Gallery from './components/Gallery';
 import Profile from './components/Profile';
@@ -54,9 +56,11 @@ const Routes = props => {
             <Route exact path="/logout" component={ Logout } />
             <Route exact path="/login" component={ Login } />
             <PrivateRoute exact path="/user/me" handleAuthCheck={loggedIn} component={ Gallery } />
-            <PrivateRoute exact path="/chat" handleAuthCheck={loggedIn} component={ Chat } />
+            <PrivateRoute exact path="/chat" handleAuthCheck={loggedIn} component={ ChatRoom } />
             <PrivateRoute exact path="/video" handleAuthCheck={loggedIn} component={ Video } />
             <PrivateRoute exact path="/profile" handleAuthCheck={loggedIn} component={ Profile } />
+            <PrivateRoute exact path="/chat/privateChat" handleAuthCheck={loggedIn} component={ PrivateChat } />
+            <PrivateRoute exact path="/chat/publicChat" handleAuthCheck={loggedIn} component={ PublicChat } />
           </AuthContext.Provider>
         </div>
       </Router>
