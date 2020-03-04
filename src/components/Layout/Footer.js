@@ -29,7 +29,7 @@ const Footer = (props) => {
         centered={true}
       >
 
-        <Tab label="Profile"
+        <Tab label="Gallery"
               component={Link}
               to='/user/me'
               />
@@ -41,6 +41,10 @@ const Footer = (props) => {
              component={Link}
              to="/video"
              />
+           <Tab label="Profile"
+                component={Link}
+                to="/profile"
+                />
 
       </Tabs>
     </AppBar>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography, Button, SvgIcon, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,10 +21,8 @@ const HomeIcon = (props) => {
   );
 };
 
-const Header = ({ handleAuthCheck }) => {
+const Header = (props) => { // handleAuthCheck
   const classes = useStyles();
-
-
 
   return (
     <AppBar position='static'>
@@ -37,16 +35,22 @@ const Header = ({ handleAuthCheck }) => {
         <Typography variant='h5'
                     color='inherit'
                     className={classes.flex}>
-          Fake Snapchat
+          Face Filter
         </Typography>
 
-        {handleAuthCheck()
+        {props.auth
           ? <Button color="inherit" to="/logout" component={Link} >
               Logout
             </Button>
-          : <Button color="inherit" to="/login" component={Link} >
-              Login
-            </Button>}
+          : <Fragment>
+              <Button color="inherit" to="/login" component={Link} >
+                Login
+              </Button>
+              <Button color="inherit" to="/signup" component={Link} >
+                  Sign Up
+              </Button>
+            </Fragment>
+          }
       </Toolbar>
     </AppBar>
   );

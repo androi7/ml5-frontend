@@ -54,22 +54,22 @@ const Login = props => {
         localStorage.setItem('userId', res.data.id);
         authUser.setUsername(res.data.username);
         authUser.setEmail(res.data.email);
+        if (res.data.id) {
+          authUser.setAuth(true);
+        } else {
+          authUser.setAuth(false);
+        }
         return res.data.token;
       })
       .then(res => {
         const route = `/user/me`
         props.history.push(route);
-        // ajax.openProfile(res, 'me').then(result => {
-        //   console.log(result);
-        //   setUsername(result.data.username);
-        // });
       })
       .catch(err => console.warn('Login error', err));
   }; // handleSubmit()
 
   return (
     <Fragment>
-      {/*<Home />*/}
       <form className={classes.root}
             autoComplete="off"
             onSubmit={handleSubmit}

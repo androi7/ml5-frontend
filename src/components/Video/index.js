@@ -1,19 +1,25 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import ml5 from 'ml5';
 import P5Wrapper from 'react-p5-wrapper';
-import Image from './Image';
+import Images from './Images';
 import sketch from './sketch';
-
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dqo5zfv4u';
 
 const Video = props => {
 
   const [snap, setSnap] = useState(false);
-  const [currentImg, setCurrentImg] = useState('');
+  const [imgStream, setImgStream] = useState(null);
+  const [stopVideo, setStopVideo] = useState(false);
 
-  // const imgRef = React.createRef();
+  // useEffect(() => {
+  //   setStopVideo(true);
+  // }, []);
+
+  const stopVid = () => {
+    setStopVideo(true);
+  };
 
   const handleClick = () => {
+    setImgStream(null);
     setSnap(true);
   };
 
@@ -21,24 +27,22 @@ const Video = props => {
     setSnap(false);
   };
 
-  const setImage = (img) => {
-    setCurrentImg(img);
+  const setImageStream = (img) => {
+    setImgStream(img);
+    console.log('imagestream:', imgStream);
   };
-
-  useEffect(() => {
-    console.log('changed image:', currentImg);
-  }, [currentImg]);
 
   return (
     <div>
       <P5Wrapper sketch={sketch}
                  passSnap={snap}
                  onSetSnap={setSnapFalse}
-                 capScreenshot={setImage}
-                 />
+                 capScreenshot={setImageStream}
+                 stop={stopVideo}
+      />
       <button onClick={handleClick}>Image</button>
-      <Image snapImage={currentImg} />
-      {/*<img src="#" />*/}
+      <Images snapImages={imgStream} />
+      <button onClick={stopVid}>Stop</button>
     </div>
   );
 };

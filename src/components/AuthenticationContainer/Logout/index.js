@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import AuthContext from '../../../helper/AuthContext';
 
-const Logout = ({history}) => {
-  localStorage.removeItem('faceapi-token');
-  localStorage.removeItem('faceapi-token-exp');
+const Logout = props => {
+
+  const authUser = useContext(AuthContext);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      history.push('/');
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [history]);
+    localStorage.removeItem('faceapi-token');
+    localStorage.removeItem('faceapi-token-exp');
+    localStorage.removeItem('userId');
+    authUser.setAuth(false);
+  }, []);
+
+
 
   return (
-    <div>
-      See you soon!
-    </div>
+    <Redirect to="/login" />
   );
 };
 
