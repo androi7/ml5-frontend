@@ -27,7 +27,6 @@ const MiniGallery = ({ img }) => {
   const handleSelectImage = e => {
     const imgSource = e.target.src;
     setImageSrc(imgSource);
-    console.log('selected image (src):', imgSource);
   };
 
   return (

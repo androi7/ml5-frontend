@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, createRef } from 'react';
 import socketIOClient from 'socket.io-client';
 import ajax from '../../../lib/ajax';
 import AuthContext from '../../../helper/AuthContext';
-// import ajax from '../../../lib/ajax';
 import UserList from '../UserList';
 import ChatMessage from '../ChatMessage';
 import MiniGallery from '../MiniGallery';
@@ -12,15 +11,17 @@ const ENDPOINT = "http://localhost:3001";
 const PublicChat = props => {
 
   const [token, setToken] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
   const [messageList, setMessageList] = useState([]);
   const [showImages, setShowImages] = useState(false);
-  const [imageSrc, setImageSrc] = useState('');
-  const [imageToShow, setImageToShow] = useState('');
+  const [imageSrc, setImageSrc] = useState(null);
+  // const [imageToShow, setImageToShow] = useState('');
 
   const userAuth = useContext(AuthContext);
   const {user: { email }} = userAuth;
   const {user: { username }} = userAuth;
+
+  const inputMessage = createRef();
 
 
   const socket = socketIOClient(ENDPOINT);
@@ -34,21 +35,26 @@ const PublicChat = props => {
     setMessageList(messageList => []);
 
     socket.on('all messages', data => {
-      if (data.type === 'txt') {
+      if (data.type === 'txt' && data.message) {
         setMessageList(messageList => [...messageList, {message: data.message, user: data.user, type: data.type, image: data.image}]);
-      } else if (data.type === 'img') {
+      } else if (data.type === 'img' && data.image) {
         setMessageList(messageList => [...messageList, {image: data.image, user: data.user, type: data.type, message: data.message}]);
       }
     });
-
-    // socket.on('all images', data => {
-    //   setImageToShow(data.image);
-    // });
 
     return () => {
       socket.close();
     }
   }, []);
+
+  useEffect(() => {
+    socket.emit('message', {
+      type: 'img',
+      message: '',
+      image: imageSrc,
+      user: {email, username}
+    });
+  }, [imageSrc]);
 
   const handleInput = evt => {
     const currentText = evt.target.value;
@@ -63,6 +69,9 @@ const PublicChat = props => {
       image: '',
       user: {email, username}
     });
+
+    // clear input field
+    inputMessage.current.value = '';
   };
 
   const handleUploadImage = () => {
@@ -71,13 +80,6 @@ const PublicChat = props => {
 
   const getImageSource = (img) => {
     setImageSrc(img);
-    console.log('image to display:', imageSrc);
-    socket.emit('message', {
-      type: 'img',
-      message: '',
-      image: imageSrc,
-      user: {email, username}
-    });
   };
 
 
@@ -87,7 +89,7 @@ const PublicChat = props => {
 
       {showImages && <MiniGallery img={getImageSource} />}
       <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleInput} />
+        <input type="text" onChange={handleInput} ref={inputMessage} />
         <input type="submit" value="Send"/>
       </form>
 
