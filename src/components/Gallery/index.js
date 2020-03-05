@@ -6,6 +6,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const styles = {
+  root: {
+    padding: 20,
+    maxHeight: '80vh',
+    overflow: 'scroll'
+  },
   image: {
     width: '100%',
     marginTop: '5vh',
@@ -57,14 +62,14 @@ const Gallery = () => {
 
 
   return (
-    <div>
+    <div className={classes.root}>
       <Grid container spacing={5} justify="center">
       {
         gallery.length > 0
         ? gallery
         : <MuiThemeProvider theme={theme}>
             <Fragment>
-              <div style={{textAlign: 'center', marginTop: 50}}>
+              <div style={{textAlign: 'center', marginTop: 20}}>
               <Skeleton variant="rect" width={300} height={200} />
               <Skeleton variant="rect" width={300} height={200} />
               </div>
