@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = ''; //'http://localhost:3001';
 const LOGIN_PATH = '/user/login';
 const SIGNUP_PATH = '/user/signup';
 const PROFILE_PATH = '/user';
