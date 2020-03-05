@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = 'http://heroku-face-filter.herokuapp.com/' //"http://localhost:3001";
 
 const PublicChat = props => {
 
