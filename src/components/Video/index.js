@@ -2,13 +2,25 @@ import React, { useState, useEffect } from 'react';
 import P5Wrapper from 'react-p5-wrapper';
 import Images from './Images';
 import sketch from './sketch';
-import { stream } from './sketch'
+import { stream } from './sketch';
+import { Button, IconButton } from '@material-ui/core';
+import { PhotoCamera, HighlightOff } from '@material-ui/icons';
+// import { CircularProgress } from '@material-ui/core';
+
 
 const Video = props => {
 
   const [snap, setSnap] = useState(false);
   const [imgStream, setImgStream] = useState(null);
   const [stopVideo, setStopVideo] = useState(false);
+  // const [loading, setLoading] = useState(true);
+
+  const webCamStyle = {
+    width: 640,
+    height: 480,
+    margin: '0 auto',
+    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
+  };
 
   useEffect(() => {
     return () => {
@@ -43,15 +55,42 @@ const Video = props => {
 
   return (
     <div>
-      <P5Wrapper sketch={sketch}
-                 passSnap={snap}
-                 onSetSnap={setSnapFalse}
-                 capScreenshot={setImageStream}
-                 stop={stopVideo}
-      />
-      <button onClick={handleClick}>Image</button>
-      <Images snapImages={imgStream} />
-      <button onClick={stopVid}>Stop</button>
+      <div style={webCamStyle}>
+        <P5Wrapper sketch={sketch}
+                   style={{display: 'inline-block'}}
+                   passSnap={snap}
+                   onSetSnap={setSnapFalse}
+                   capScreenshot={setImageStream}
+                   stop={stopVideo}
+                  />
+        {/*
+          loading && <CircularProgress color="secondary" style={{margin: '0 auto'}} />
+      */}
+
+      </div>
+
+      <div style={{margin: '0 auto', width: 150}}>
+        <IconButton color="primary"
+                    style={{height: 50, width: 50}}
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={handleClick}
+                    >
+          <PhotoCamera />
+        </IconButton>
+        <IconButton color="primary"
+                    style={{height: 50, width: 50}}
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={stopVid}
+                    >
+          <HighlightOff />
+        </IconButton>
+      </div>
+      {
+        imgStream && <Images snapImages={imgStream} />
+      }
+
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ajax from '../../../lib/ajax';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {

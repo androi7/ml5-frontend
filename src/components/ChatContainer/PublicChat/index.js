@@ -149,10 +149,14 @@ const PublicChat = props => {
                    onChange={handleInput}
                    inputRef={inputMessage}
                    />
-                 <IconButton color="primary" style={{position: 'absolute', zIndex: 100, height: 32,width: 32, right: '30%'}} aria-label="upload picture" component="span" onClick={handleUploadImage}>
+        <IconButton color="primary"
+                    style={{position: 'absolute', zIndex: 100, height: 32,width: 32, right: '30%'}}
+                    aria-label="upload picture"
+                    component="span"
+                    onClick={handleUploadImage}
+                    >
           <PhotoCamera />
         </IconButton>
-
         <Button variant="contained"
                 color="primary"
                 type="submit"
