@@ -48,11 +48,10 @@ const Gallery = () => {
   useEffect(() => {
     ajax.getGallery(token).then(res => {
       setGallery(res.data.map((img, ind) => (
-        <Grid item xs={4} md={3}>
-          <img key={ind} src={img} className={classes.image} alt="" />
+        <Grid item xs={4} md={3} key={ind}>
+          <img src={img} className={classes.image} alt="" />
         </Grid>
-      )
-    ));
+      )));
     });
   }, [token]);
 
