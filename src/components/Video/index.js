@@ -50,7 +50,6 @@ const Video = props => {
 
   const setImageStream = (img) => {
     setImgStream(img);
-    console.log('imagestream:', imgStream);
   };
 
   return (

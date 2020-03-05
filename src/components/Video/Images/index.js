@@ -32,6 +32,10 @@ const Images = (props) => {
 
   useEffect(() => {
     setToken(localStorage.getItem('faceapi-token'));
+    return () => {
+      setStream(null);
+      setImage('');
+    }
   }, []);
 
   useEffect(() => {
