@@ -20,7 +20,7 @@ The page is still under construction and so far only one filter is applied.
 5. You can chat with other people and share your photo by clicking the symbol which will load your gallery
 
 ## Bugs
-- sometimes user has to enable the webcam settings manually without getting a popup
+- sometimes user has to enable the webcam settings manually without getting a popup (refresh the page)
 - the images are not always getting stored in the cloudinary API
 - webcam needs a while to showing up and the ml5 library needs a lot of CPU capacity that's why the computer can get overloaded
 - when taking a photo you have to choose between a variety of possible pictures because so far it wasn't able to garantee to get a screenshot with the applied filter at a specific time
